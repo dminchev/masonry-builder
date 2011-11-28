@@ -6,9 +6,8 @@ body {
 }
 
 #header {
-	background-image: url('../images/header.png');
 	background-repeat: no-repeat;
-	height: 94px;
+	height: 100px;
 	margin-bottom: 20px;
 }
 
