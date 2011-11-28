@@ -1,3 +1,13 @@
+/**
+ * jQuery Masonry Builder v 0.1
+ * A dynamic layout plugin for jQuery using jQuery Masonry Plugin, jQuery Smartsize and Modernizr
+ * Works like masonry but fits the bounds of the container and gentle recalculates the items on resize
+ *
+ * https://github.com/somuchbetter/masonry-builder
+ *
+ * Licensed under the MIT license.
+ * Copyright 2011 Dobromir Minchev
+ */
 (function( $ ) {
 	
 	var methods = {
