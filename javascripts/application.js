@@ -34,8 +34,8 @@ $(function() {
 								+ image.name
 								+ '" alt="Interior"' 
 								+ 'width="' + columnWidth + '" height="' + Math.floor(ratio * columnWidth) +'"/>'
-								+ '<h2>' + $(this).loremcontent('title') + '</h2>'
-								+ '<p>' + $(this).loremcontent() + '</p></div>'
+								+ '<h2>' + $(this).loremContent('title') + '</h2>'
+								+ '<p>' + $(this).loremContent() + '</p></div>'
 								
 	}
 	

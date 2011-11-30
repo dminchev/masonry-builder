@@ -9,7 +9,7 @@
   var methods = {
     init : function(options) { 
       settings = $.extend(settings, options)
-			return $(this).loremcontent('sentence')
+			return $(this).loremContent('sentence')
     },
 
     sentence : function(options) {
@@ -22,7 +22,7 @@
 			
 			var sentences = Math.round(Math.random() * settings.maxSentences)
 			if (sentences == 0) sentences++
-			return $(this).loremcontent('_text', loremSentences, sentences, '. ')
+			return $(this).loremContent('_text', loremSentences, sentences, '. ')
     },
 
     title : function(options) {
@@ -32,7 +32,7 @@
 			var words = Math.round(Math.random() * settings.maxWords)
 			if (words <= 1) words++
 
-			return $(this).loremcontent('_text', loremWords, words, ' ')
+			return $(this).loremContent('_text', loremWords, words, ' ')
     },
 
     _text : function(arr, total, glue) { 
@@ -45,7 +45,7 @@
     }
   };
 
-  $.fn.loremcontent = function( method ) {
+  $.fn.loremContent = function( method ) {
     
     // Method calling logic
     if ( methods[method] ) {
@@ -53,7 +53,7 @@
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.loremcontent' );
+      $.error( 'Method ' +  method + ' does not exist on jQuery.loremContent' );
     }    
   
   };
