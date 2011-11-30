@@ -1,64 +1,85 @@
-/**
- * jQuery Masonry Builder v 0.1
- * A dynamic layout plugin for jQuery using jQuery Masonry Plugin, jQuery Smartsize and Modernizr
- * Works like masonry but fits the bounds of the container and gentle recalculates the items on resize
- *
- * https://github.com/somuchbetter/masonry-builder
- *
- * Licensed under the MIT license.
- * Copyright 2011 Dobromir Minchev
- */
-(function( $ ) {
+(function( $ ){
+	var settings = {
+		animationOptions : { queue: false, duration: 500, easing: 'linear' },
+		columnWidth : 240,
+		gutterWidth : 0,
+		isAnimated : false,
+		isFitWidth : false,
+		isResizable : true,
+		isRTL : false,
+		itemSelector : '.item',
+
+		containerSelector : '',
+		container : '',
+		itemOffset : 0,
+		columnMinWidth : 240
+	}
 	
-	var methods = {
-		init: function(options){
+  var methods = {
+    init : function(options) { 
+			$(this).masonryBuilder('setSetting', options)
+			
+      if (options == undefined || options.containerSelector == undefined) {
+				settings.container = this
+			} else {
+				settings.container = $(settings.containerSelector)
+			}
+
 			$(window).smartresize(function(){
-				$(this).masonryBuilder('build', options)
-			}).resize();
+				$(this).masonryBuilder('build')
+			}).resize()
+			return this
+    },
+
+    itemOffset : function(outerWidth, width) {
+      settings.itemOffset = outerWidth - width
+			return this
+    },
+
+		recalculateColumWidth : function(options) {
+			settings.columnWidth = Math.floor(settings.container.width() / Math.floor(settings.container.width() / settings.columnMinWidth))
+			return this
+		},
+
+    fixWidth : function() { 
+      $(settings.containerSelector + ' ' + settings.itemSelector).each(function() {
+				$(this).masonryBuilder('itemOffset', $(this).outerWidth(true), $(this).width())
+				$(this).css('width', settings.columnWidth - settings.itemOffset)
+			})
+			return this
+    },
+
+		setSetting : function(options) {
+			settings = $.extend(settings, options)
+			settings.columnMinWidth = settings.columnWidth
+		},
+
+		build : function() {
+			$(this).masonryBuilder('recalculateColumWidth').masonryBuilder('fixWidth')
+			settings.container.imagesLoaded(function(){
+				settings.container.masonry(settings);
+		 	});
+			return this
 		},
 		
-		build: function(options){
-			var settings, container, columnWidth, itemOffset
-
-			settings = $.extend({
-				// jQuery Massonry Plugin Options
-				animationOptions: { queue: false, duration: 500 },
-				columnWidth: 240,
-				gutterWidth: 0,
-				isAnimated: false,
-				isFitWidth: false,
-				isResizable: true,
-				isRTL: false,
-				itemSelector: '.item',
-
-				container: '#container'
-			}, options)
-
-			container = $(settings.container);
-
-			columnWidth = Math.floor(container.width() / Math.floor(container.width() / settings.columnWidth))
-			$(settings.container + ' ' + settings.itemSelector).each(function() {
-				itemOffset = $(this).outerWidth(true) - $(this).width();
-				$(this).css('width', columnWidth - itemOffset)
-			})
-
-			settings.columnWidth = columnWidth
-			settings.gutterWidth = 0 // Disable gutter so we could resize items properly to fix the container width
-
-			container.imagesLoaded(function(){
-			  container.masonry(settings)
-			})
+		append : function(items) {
+			settings.container.append(items).masonryBuilder('fixWidth').masonry( 'appended', items, true);
+			return this
 		}
-	} 
-	
+		
+  };
+
   $.fn.masonryBuilder = function( method ) {
-		// Method calling logic
+    
+    // Method calling logic
     if ( methods[method] ) {
       return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.masonryBuilder' );
-    }
-  }
-})( jQuery )
+    }    
+  
+  };
+
+})( jQuery );

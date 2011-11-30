@@ -6,14 +6,12 @@ body {
 }
 
 #header {
-	background-repeat: no-repeat;
-	height: 100px;
-	margin-bottom: 20px;
+	margin: 20px auto;
+	text-align: center;
 }
 
-#sidebar {
-	width: 180px;
-	float: left;
+#header button {
+	padding: 10px 20px;
 }
 
 .container {
@@ -52,6 +50,10 @@ body {
 
 .masonry .masonry-brick {
 	background-color: #FFFFFF;
+}
+
+.extra, .extra-all {
+	display: none;
 }
 
 /**** Transitions ****/

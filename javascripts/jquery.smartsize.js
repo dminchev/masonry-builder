@@ -17,7 +17,7 @@
           else if (execAsap)
               func.apply(obj, args);
  
-          timeout = setTimeout(delayed, threshold || 60); 
+          timeout = setTimeout(delayed, threshold || 70); 
       };
   }
 	// smartresize 
