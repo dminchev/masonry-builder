@@ -11,8 +11,7 @@
 
 		containerSelector : '',
 		container : '',
-		itemOffset : 0,
-		columnMinWidth : 240
+		itemOffset : 0
 	}
 	
   var methods = {
